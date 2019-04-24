@@ -17,6 +17,8 @@ import pprint
 import data_utils
 import tprnn_model
 
+import argparse
+
 
 def numpy_floatX(data):
     return np.asarray(data, dtype=config.floatX)
@@ -251,4 +253,9 @@ def train(data_dir='data/memes/',
 
 
 if __name__ == '__main__':
-    train(data_dir='data/twitter', dim_proj=512, keep_ratio=1.)
+    parser = argparse.ArgumentParser("topolstm")
+    parser.add_argument("--data",help="dataset path such as dataset/twitter",default="dataset/twitter")
+    parser.add_argument("--dim", help="dim_proj default: 512",default=512)
+    parser.add_argument("--keep_ratio",help="keep_ratio",default=1.0)
+    args = parser.parse_args()
+    train(data_dir=args.data, dim_proj=args.dim, keep_ratio=args.keep_ratio)
